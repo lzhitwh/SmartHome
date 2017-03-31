@@ -111,7 +111,7 @@ public class ReceiveService extends Service{
 			}
 		}
 		
-		public void udpDataSend(byte[] data) throws UnknownHostException{
+		public void udpDataSend(byte[] data){
 			try {
 				udpSendPacket.setAddress(InetAddress.getByName(udpDestIp));
 				udpSendPacket.setPort(udpPort);
