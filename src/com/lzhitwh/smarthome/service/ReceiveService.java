@@ -5,7 +5,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 
 import android.app.Service;
 import android.content.Intent;
@@ -22,7 +21,7 @@ public class ReceiveService extends Service{
 	private int udpPort = 54321;						//数据网络端口，本地端口
 	
 	private UdpReceviceThread udpReceviceThread = new UdpReceviceThread();
-//	private UdpBinder udpBinder = new UdpBinder();
+	private UdpBinder udpBinder = new UdpBinder();
 
 	@Override
 	public void onCreate() {
@@ -44,7 +43,7 @@ public class ReceiveService extends Service{
 	public IBinder onBind(Intent intent) {
 		// TODO Auto-generated method stub
 		
-		return new UdpBinder();
+		return udpBinder;
 	}
 
 	@Override
@@ -94,35 +93,38 @@ public class ReceiveService extends Service{
 		}
 	}
 	
-	private class UdpBinder extends Binder{
+	public class UdpBinder extends Binder{
 		
-		private DatagramPacket udpSendPacket = null;
-		private String udpDestIp = "192.168.1.100";
+		private String udpDestIp = "192.168.1.105";
 		private int udpDestPort = 54321;
 		
-		public UdpBinder() {
-			super();
-			// TODO Auto-generated constructor stub
-			try{
-				udpSendPacket = new DatagramPacket(null,0,
-						InetAddress.getByName(udpDestIp),udpDestPort);
-			}catch(Exception e){
-				e.printStackTrace();
-			}
+		public void udpDataSend(byte[] data){
+			new UdpSendThread(data).start();
 		}
 		
-		public void udpDataSend(byte[] data){
-			try {
-				udpSendPacket.setAddress(InetAddress.getByName(udpDestIp));
-				udpSendPacket.setPort(udpPort);
-				udpSendPacket.setData(data,0,data.length);
-				udpSocket.send(udpSendPacket);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		private class UdpSendThread extends Thread{
+			private byte[] udpData;
+			
+			public UdpSendThread(byte[] data){
+				udpData = data;
+			}
+			
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				super.run();
+				
+				try {
+					DatagramPacket udpSendPacket = new DatagramPacket(
+							udpData, udpData.length, InetAddress.getByName(udpDestIp), udpDestPort);
+					udpSocket.send(udpSendPacket);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
 		}
-
 		public String getUdpDestIp() {
 			return udpDestIp;
 		}
