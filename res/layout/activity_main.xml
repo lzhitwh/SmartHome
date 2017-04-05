@@ -1,39 +1,83 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.lzhitwh.smarthome.MainActivity" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="IP地址：" />
-    <EditText 
-        android:id="@+id/ip_editText"
-        android:layout_width="fill_parent"
-		android:layout_height="wrap_content" />
-    <TextView 
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="port号："/>
-    <EditText 
-        android:id="@+id/port_editText" 
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        />   
-    <TextView 
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="数据："/>
-    <EditText 
-        android:id="@+id/data_editText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/> 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="数据发送"/>
-		
-</LinearLayout>
+	<LinearLayout
+	    android:id = "@+id/user_inf"
+	    android:layout_width="match_parent"
+	    android:layout_height="50dp"
+	    android:layout_alignParentTop="true"
+	    android:background="#19AEE6"
+	    android:orientation="horizontal">
+	    <ImageButton
+	        android:id="@+id/user_pho"
+	        android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:background="@null"
+	        android:paddingLeft="10dp"
+	        />
+	   </LinearLayout>
+	   
+	<LinearLayout
+	    android:id="@+id/function_exch"
+	    android:layout_width="match_parent"
+	    android:layout_height="60dp"
+	    android:paddingTop="1dp"
+	    android:background="#ededed"
+	    android:layout_alignParentBottom="true"
+	    android:orientation="horizontal" >
+	    
+	    <RadioGroup 
+	        android:id="@+id/fun_select"
+	        android:background="@android:color/white"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	       	android:orientation="horizontal">
+	       	
+	        <RadioButton 
+	            android:id="@+id/light_con"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:checked="true"
+	           	android:button="@null"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:text="@string/light_name"/>
+	        <RadioButton 
+	            android:id="@+id/televison_con"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	           	android:button="@null"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:text="@string/televsion_name"/>
+	        <RadioButton 
+	            android:id="@+id/aircondition_con"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	           	android:button="@null"
+	            android:layout_weight="1"
+	            android:gravity="center"
+				android:text="@string/aircondition_name"/>
+	        <RadioButton 
+	            android:id="@+id/other_con"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	           	android:button="@null"
+	            android:layout_weight="1"
+	            android:gravity="center"
+				android:text="@string/other_name"/>"
+	    </RadioGroup>
+	   
+	</LinearLayout>
+	<FrameLayout 
+	    android:id="@+id/app_cont"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_above="@id/function_exch"
+	    android:layout_below="@id/user_inf"
+	    >
+	</FrameLayout>
+</RelativeLayout>
